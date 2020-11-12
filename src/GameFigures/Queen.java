@@ -4,8 +4,6 @@ import Game.Square;
 
 public class Queen extends Piece {
     private PieceTypes type;
-    private int x;
-    private int y;
     private Player player;
 
     public Queen(int x, int y, Player player){

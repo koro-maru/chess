@@ -7,8 +7,6 @@ import Game.Square;
 public class Rook extends Piece{
     private Player player;
     private PieceTypes type;
-    private int x;
-    private int y;
 
     public Rook(int x, int y, Player player){
         super(x, y, player);
@@ -24,6 +22,9 @@ public class Rook extends Piece{
     @Override
     public boolean moveValidity(Square[][] b, int endX, int endY) {
         //Must implement castling
-        return checkHorizontal(b, x,y, endY);
+        if(endX==x){
+            return checkHorizontal(b, x, y, endY);
+        }
+        return checkVertical(b, x,y, endX);
     }
 }

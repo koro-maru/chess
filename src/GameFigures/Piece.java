@@ -3,9 +3,9 @@ import Game.*;
 
 
 public abstract class Piece {
-    int x;
-    int y;
-    Player p;
+    protected int x;
+    protected int y;
+    protected Player p;
 
     public Piece(int x, int y, Player p){
         this.x = x;
@@ -31,12 +31,12 @@ public abstract class Piece {
 
     //If the square has the x and y position, why do the pieces need it too?
 
-    boolean checkMinorDiagonal(Square[][] board, int startX, int startY, int endX, int endY, Player p){
+    boolean checkMinorDiagonal(Square[][] board, int startX, int startY, int endX, int endY){
         boolean after = startX > endX ? true : false;
 
         for(int i = endY, j = endX; i >= 0 && j < board.length; --i, ++j){
             //After to ensure the piece can still move the other way if there is another piece blocking one way
-            if (board[i][j] != null && board[i][j].getColor().equals(p.getColor()) && ((after && j > startY)|| (!after && j < startY))) {
+            if (board[i][j] != null && checkSameColor(this, board[i][j].getPiece()) && ((after && j > startY)|| (!after && j < startY))) {
                 return false;
             }
 
@@ -60,7 +60,7 @@ public abstract class Piece {
 
             //check if there is piece between end and start
 
-            if (board[i][j] != null && board[i][j].getColor().equals(p.getColor()) && ((after && i > startX)||(!after && i < startX ))) {
+            if (board[i][j] != null && checkSameColor(this, board[i][j].getPiece()) && ((after && i > startX)||(!after && i < startX ))) {
                 return false;
             }
 
@@ -78,7 +78,7 @@ public abstract class Piece {
         for(int i = 0; i < board.length; i++){
             boolean after = startY < endY ? true : false;
             //ability to still move a certain length if there is another piece horizontally
-            if(endY==startY || board[startX][i]!=null && board[startX][i].getColor().equals(p.getColor()) &&  ((after && i > startY)||(!after && i < startY))){
+            if(endY==startY || board[startX][i]!=null && checkSameColor(this, board[startX][i].getPiece()) &&  ((after && i > startY)||(!after && i < startY))){
                 return false;
             }
         }
@@ -90,11 +90,17 @@ public abstract class Piece {
             //desired square before or after current piece
             boolean after = startX < endX ? true : false;
 
-            if(endX==startX || board[i][startY]!=null && board[i][startY].getColor().equals(p.getColor()) && (after && i > startX || (!after && i < startX))){
+            if(endX==startX || board[i][startY]!=null && checkSameColor(this, board[i][startY].getPiece()) && (after && i > startX || (!after && i < startX))){
                 return false;
             }
         }
         return true;
     }
 
+    protected boolean checkSameColor(Piece p1, Piece p2){
+        if(p1==null || p2==null){
+            return false;
+        }
+        return p1.getPlayer().getColor()==this.getPlayer().getColor() ? true : false;
+    }
 }

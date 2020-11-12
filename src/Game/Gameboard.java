@@ -22,7 +22,7 @@ public class Gameboard {
         setUpBoard(board, white,black, whitePieces, blackPieces);
         displayBoard(board);
 
-
+        System.out.println(board[0][1].getPiece().moveValidity(board,2,2));
     }
 
     public static void setUpBoard(Square[][] board, Player white, Player black, ArrayList<Piece> whitePieces, ArrayList<Piece> blackPieces){

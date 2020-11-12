@@ -1,13 +1,12 @@
 package GameFigures;
 
+import Game.Colors;
 import Game.Player;
 import Game.Square;
 
 public class Knight extends Piece {
     private Player player;
     private PieceTypes type;
-    private int x;
-    private int y;
 
     public Knight(int x, int y, Player player){
         super(x, y, player);
@@ -32,7 +31,8 @@ public class Knight extends Piece {
 
     @Override
     public boolean moveValidity(Square[][] b, int endX, int endY) {
-            if(Math.abs(y-endY)==3 && Math.abs(x - endX)==1 || Math.abs(y-endY)==1 && Math.abs(x-endX)==3){
+            if(Math.abs(y-endY)==2 && Math.abs(x-endX)==1 ||
+               Math.abs(y-endY)==1 && Math.abs(x-endX)==2){
                 return true;
             }
         return false;

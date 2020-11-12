@@ -6,8 +6,6 @@ import Game.Square;
 public class Bishop extends Piece {
     private Player player;
     private PieceTypes type;
-    private int x;
-    private int y;
 
     public Bishop(int x, int y, Player player){
         super(x, y, player);
@@ -21,6 +19,9 @@ public class Bishop extends Piece {
 
     @Override
     public boolean moveValidity(Square[][] b, int endX, int endY) {
-        return false;
+                if(endX > x && endY > y){
+                    return checkMajorDiagonal(b, x, y, endX, endY);
+                }
+          return checkMinorDiagonal(b, x, y, endX, endY);
     }
 }
